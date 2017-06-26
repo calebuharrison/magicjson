@@ -195,5 +195,6 @@ module MagicJSON
                       dont_deserialize = nil, dont_serialize = nil,
                       pass_extra_fields = nil, getter = nil,
                       setter = false, property = nil)
+    {% raise "Don't try to call MagicJSON macros directly! Use 'include MagicJSON' and then call the macros like 'json_defaults getter: true' not 'MagicJSON.json_defaults getter: true'." %}
   end
 end
