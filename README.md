@@ -24,13 +24,13 @@ dependencies:
 
 ## Usage
 
-```crystal
+```ruby
 require "magicjson"
 ```
 
 Define a User with a username and a `bot?` field:
 
-```crystal
+```ruby
 require "magicjson"
 
 struct User
@@ -38,7 +38,7 @@ struct User
 
   json_defaults getter: true # MagicJSON supports customizable defaults!
   field username : String
-  field bot? : Bool = true # As opposed to JSON.mapping, you can also easily define fields ending in question marks or exclamation marks.
+  field bot? : Bool = true, key: "bot" # As opposed to JSON.mapping, you can also easily define fields ending in question marks or exclamation marks.
 end
 ```
 
