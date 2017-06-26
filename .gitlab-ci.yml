@@ -1,0 +1,8 @@
+image: "crystallang/crystal:latest"
+
+pages:
+  script:
+    - crystal docs
+  artifacts:
+    paths:
+      docs

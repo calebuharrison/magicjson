@@ -1,0 +1,5 @@
+require "json"
+require "./magicjson/api"
+require "./magicjson/validate"
+require "./magicjson/generate"
+require "./magicjson/infect"
