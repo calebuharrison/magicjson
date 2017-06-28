@@ -69,7 +69,7 @@ module MagicJSON
           \{% tuple[:converter] = {type: converter} %}
         \{% end %}
       \{% end %}
-      \{% tuple[:default] = type_decl.value if !type_decl.value.is_a?(Nop) %}
+      \{% tuple[:default] = type_decl.value %}
       \{% tuple[:emit_null] = emit_null if emit_null != nil %}
       \{% tuple[:extra_field] = extra_field if extra_field != nil %}
       \{% tuple[:dont_deserialize] = dont_deserialize if dont_deserialize != nil %}

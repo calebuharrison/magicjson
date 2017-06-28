@@ -21,7 +21,7 @@ module MagicJSON
       end
 
       \{% for k, v in MAGICJSON_FIELDS %}
-        \{% if v[:default] != nil %}
+        \{% if !v[:default].is_a?(Nop) %}
           @\{{v[:ivar_name].id}} : \{{v[:type]}} = \{{v[:default]}}
         \{% else %}
           @\{{v[:ivar_name].id}} : \{{v[:type]}}
@@ -51,7 +51,7 @@ module MagicJSON
               \%found{v[:key]} = true
 
               \%var{v[:key]} =
-                \{% if v[:default] != nil %} pull_parser.read_null_or { \{% end %}
+                \{% if !v[:default].is_a?(Nop) %} pull_parser.read_null_or { \{% end %}
 
                 \{% if (MAGICJSON_DEFAULTS[:converter] && MAGICJSON_DEFAULTS[:converter][:type] &&
                         (v[:converter] == nil || v[:converter][:type] == nil)) || (v[:converter] != nil &&
@@ -121,7 +121,7 @@ module MagicJSON
                     )
                 \{% end %}
 
-                \{% if v[:default] != nil %} } \{% end %}
+                \{% if !v[:default].is_a?(Nop) %} } \{% end %}
             \{% end %}
           \{% end %}
           else
@@ -134,7 +134,7 @@ module MagicJSON
         end
 
         \{% for k, v in MAGICJSON_FIELDS %}
-          \{% if !v[:extra_field] && !v[:dont_deserialize] && v[:default] == nil %}
+          \{% if !v[:extra_field] && !v[:dont_deserialize] && v[:default].is_a?(Nop) %}
             if !\%found{v[:key]} && \%var{v[:key]} == nil && !::Union(\{{v[:type]}}).nilable?
               raise ::JSON::ParseException.new("Missing json attribute: \{{v[:key].id}} (\{{k.id}} : \{{v[:type]}})", 0, 0)
             end
@@ -143,7 +143,7 @@ module MagicJSON
 
         \{% for k, v in MAGICJSON_FIELDS %}
           \{% if !v[:extra_field] && !v[:dont_deserialize] %}
-            \{% if v[:default] != nil %}
+            \{% if !v[:default].is_a?(Nop) %}
               @\{{v[:ivar_name].id}} = \%var{v[:key]}.nil? ? (\{{v[:default]}}) : \%var{v[:key]}
             \{% else %}
               @\{{v[:ivar_name].id}} = \%var{v[:key]}.as(\{{v[:type]}})
