@@ -4,7 +4,7 @@ module MagicJSON
     \{% begin %}
       \{% json_field_found = false %}
       \{% for k, v in MAGICJSON_FIELDS %}
-        \{% if ((MAGICJSON_DEFAULTS[:dont_deserialize] && v[:dont_deserialize] == nil) || v[:dont_deserialize] == true) && v[:default].is_a?(Nop) %}
+        \{% if ((MAGICJSON_DEFAULTS[:dont_deserialize] && v[:dont_deserialize] == nil) || v[:dont_deserialize] == true) && !v[:has_default] %}
           \{% raise "[#{@type.name}|#{k.id} : #{v[:type]}] Only fields with a default value can have 'dont_deserialize' enabled" %}
         \{% end %}
 
